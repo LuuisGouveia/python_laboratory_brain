@@ -62,9 +62,7 @@ select:focus {
   border: 2px solid var(--box-color);
   border-radius: 30px;
 }
-.menu {
- 
-}
+
 
 .btn-nav a {
   text-decoration: none;
