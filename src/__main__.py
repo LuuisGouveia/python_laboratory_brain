@@ -1,5 +1,5 @@
-from laboratorybrain.database import models
-from laboratorybrain.ui import main_window
+from laboratory_brain.database import models
+from laboratory_brain.ui import main_window
 
 if __name__ == "__main__":
     models.create_tables()

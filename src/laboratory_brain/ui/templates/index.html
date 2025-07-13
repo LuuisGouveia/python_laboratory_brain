@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Laboratory</title>
+  </head>
+  <body class="p-r bg">
+    <header>
+      <div id="head" class="box">
+        <div id="menu-btn-box" class="box-p">
+          <button type="button" id="menu-btn">
+            <img src="./images/barra-de-menu.png" alt="menu" />
+          </button>
+        </div>
+        <div id="logo">
+          <img src="./images/Brain.png" alt="logo Laboratory Brain" />
+        </div>
+        <div id="void-box" class="box-p"></div>
+      </div>
+    </header>
+    <section>
+      <aside>
+        <div id="aside" class="box">
+          <div id="receivable" class="icon">
+            <img src="images/carteira.png" alt="carteira" />
+            <h2>Total a receber</h2>
+          </div>
+          <div id="checks" class="icon">
+            <img src="images/cheque-bancario.png" alt="cheque" />
+            <h2>cheques à vencer</h2>
+          </div>
+          <div id="tickets" class="icon">
+            <img src="images/cobrar.png" alt="boleto" />
+            <h2>Boletos à vencer</h2>
+          </div>
+        </div>
+      </aside>
+      <aside>
+        <nav id="nav" class="nav">
+          <div id="close-box"><button id="close" class="btn">X</button></div>
+          <div class="btn-nav p-m" id="home">
+            <img src="./images/casa.png" alt="casa" /><a href="#">Home</a>
+          </div>
+          <div class="btn-nav p-m" id="newOutput">
+            <img src="images/job-promotion.png" alt="" /><a href="#"
+              >Novo Registro</a
+            >
+          </div>
+          <div class="btn-nav p-m" id="newClient">
+            <img src="images/adicionar-usuario.png" alt="" /><a href="#"
+              >Novo Cliente</a
+            >
+          </div>
+          <div class="btn-nav p-m" id="newNote">
+            <img src="images/fatura.png" alt="" /><a href="#">Nova Nota</a>
+          </div>
+          <div class="btn-nav p-m" id="jobManager">
+            <img src="images/job-promotion (1).png" alt="" /><a href="#"
+              >Gerenciar Tabela</a
+            >
+          </div>
+        </nav>
+      </aside>
+      <div id="content" class="box"></div>
+    </section>
+    <script type="module" src="../js/renderer.js"></script>
+  </body>
+</html>
