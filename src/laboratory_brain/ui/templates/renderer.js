@@ -4,27 +4,27 @@ const content = document.getElementById("content");
 
 const works_btn = document.getElementById("works");
 works_btn.addEventListener("click", ()=>{
-  load_content("./views/works.html");
+  load_content("./views/tables/works.html");
 })
 
 const clients_btn = document.getElementById("clients");
 clients_btn.addEventListener("click", ()=>{
-  load_content("./views/clients.html");
+  load_content("./views/tables/clients.html");
 })
 
 const prices_btn = document.getElementById("prices");
 prices_btn.addEventListener("click", ()=>{
-  load_content("./views/prices.html");
+  load_content("./views/tables/prices.html");
 })
 
 const notes_btn = document.getElementById("notes");
 notes_btn.addEventListener("click", ()=>{
-  load_content("./views/notes.html");
+  load_content("./views/tables/notes.html");
 })
 
 const work_types_btn = document.getElementById("work_types");
 work_types_btn.addEventListener("click", () => {
-  load_content("./views/work_types.html");
+  load_content("./views/tables/work_types.html");
 })
 
 

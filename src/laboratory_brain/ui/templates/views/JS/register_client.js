@@ -102,6 +102,3 @@ function submit_dentist(){
 
     console.log(obj_client)
 }
-
-
-
