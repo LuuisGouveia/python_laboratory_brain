@@ -246,3 +246,8 @@ table td {
   flex-direction: column;
   gap: 10px;
 }
+
+
+.invisible_form{
+  display: none;
+}
