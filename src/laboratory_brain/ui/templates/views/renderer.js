@@ -36,7 +36,7 @@ const homeBtn = document.getElementById("home");
 homeBtn.addEventListener("click", () => {
   showAndCloseMenu();
   content.innerHTML = "";
-  content.innerHTML = Home.html();
+  content.innerHTML = "";
 });
 
 const clientBtn = document.getElementById("newClient");
