@@ -51,6 +51,11 @@ select {
 select:focus {
   border: 2px solid var(--second-color);
 }
+
+.main-box{
+  display: flex;
+}
+
 .nav {
   display: flex;
   flex-direction: column;
@@ -61,6 +66,7 @@ select:focus {
   gap: 30px;
   border: 2px solid var(--box-color);
   border-radius: 30px;
+  padding: 5px;
 }
 
 
