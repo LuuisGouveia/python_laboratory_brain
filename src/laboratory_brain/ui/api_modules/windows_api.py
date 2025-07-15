@@ -14,6 +14,5 @@ class Windows_Api:
             file_url,
             width=500,
             height=600,
-            resizable=False,
-            modal=True
+            resizable=False
         )

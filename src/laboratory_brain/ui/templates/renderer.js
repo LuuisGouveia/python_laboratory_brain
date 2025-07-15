@@ -2,45 +2,80 @@
 
 const content = document.getElementById("content");
 
-const works_btn = document.getElementById("works");
-works_btn.addEventListener("click", ()=>{
-  load_content("./views/tables/works.html");
-})
+// Botões do menu lateral
+document.getElementById("works").addEventListener("click", () => load_content("./views/tables/works.html"));
+document.getElementById("clients").addEventListener("click", () => load_content("./views/tables/clients.html"));
+document.getElementById("prices").addEventListener("click", () => load_content("./views/tables/prices.html"));
+document.getElementById("notes").addEventListener("click", () => load_content("./views/tables/notes.html"));
+document.getElementById("work_types").addEventListener("click", () => load_content("./views/tables/work_types.html"));
 
-const clients_btn = document.getElementById("clients");
-clients_btn.addEventListener("click", ()=>{
-  load_content("./views/tables/clients.html");
-})
-
-const prices_btn = document.getElementById("prices");
-prices_btn.addEventListener("click", ()=>{
-  load_content("./views/tables/prices.html");
-})
-
-const notes_btn = document.getElementById("notes");
-notes_btn.addEventListener("click", ()=>{
-  load_content("./views/tables/notes.html");
-})
-
-const work_types_btn = document.getElementById("work_types");
-work_types_btn.addEventListener("click", () => {
-  load_content("./views/tables/work_types.html");
-})
-
-
-function load_content(html_path){
+// Função para carregar conteúdo e configurar eventos específicos de cada página
+function load_content(html_path) {
   fetch(html_path)
     .then(response => {
-      if (!response.ok){
-        throw new Error("Erro ao carregar a pagina" + response.status);
+      if (!response.ok) {
+        throw new Error("Erro ao carregar a página " + response.status);
       }
       return response.text();
     })
     .then(html => {
-      content.innerHTML=html;
+      content.innerHTML = html;
+      configurar_eventos_da_pagina(html_path);
     })
     .catch(error => {
       console.log(error);
-      content.innerHTML='<p>Erro ao carregar a pagina!</p>';
+      content.innerHTML = '<p>Erro ao carregar a página!</p>';
     });
+}
+
+
+function configurar_eventos_da_pagina(html_path) {
+  if (html_path.includes('clients.html')) {
+    const btn = document.getElementById("new_client");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        window.pywebview.api.windows.register_client_modal();
+      });
+    }
+  }
+
+  
+  if (html_path.includes('works.html')) {
+    const workBtn = document.getElementById("add_work");
+    if (workBtn) {
+      workBtn.addEventListener("click", () => {
+        console.log("Cadastrar trabalho");
+        // Aqui futura chamada do PyWebview API ou modal
+      });
+    }
+  }
+  if (html_path.includes('work_types.html')) {
+    const workBtn = document.getElementById("add_work");
+    if (workBtn) {
+      workBtn.addEventListener("click", () => {
+        console.log("Cadastrar trabalho");
+        // Aqui futura chamada do PyWebview API ou modal
+      });
+    }
+  }
+  if (html_path.includes('prices.html')) {
+    const workBtn = document.getElementById("add_work");
+    if (workBtn) {
+      workBtn.addEventListener("click", () => {
+        console.log("Cadastrar trabalho");
+        // Aqui futura chamada do PyWebview API ou modal
+      });
+    }
+  }
+  if (html_path.includes('notes.html')) {
+    const workBtn = document.getElementById("add_work");
+    if (workBtn) {
+      workBtn.addEventListener("click", () => {
+        console.log("Cadastrar trabalho");
+        // Aqui futura chamada do PyWebview API ou modal
+      });
+    }
+  }
+
+ 
 }
