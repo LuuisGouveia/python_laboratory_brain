@@ -39,40 +39,38 @@ function configurar_eventos_da_pagina(html_path) {
     }
   }
 
+  if (html_path.includes('work_types.html')) {
+    const work_type_Btn = document.getElementById("new_work_type");
+    if (work_type_Btn) {
+      work_type_Btn.addEventListener("click", () => {
+        window.pywebview.api.windows.register_work_types_modal();
+      });
+    }
+  }
+
+  if (html_path.includes('prices.html')) {
+    const prices_Btn = document.getElementById("new_prices");
+    if (prices_Btn) {
+      prices_Btn.addEventListener("click", () => {
+        window.pywebview.api.windows.register_prices_modal();
+      });
+    }
+  }
+
+  if (html_path.includes('notes.html')) {
+    const note_Btn = document.getElementById("new_note");
+    if (note_Btn) {
+      note_Btn.addEventListener("click", () => {
+        window.pywebview.api.windows.register_notes_modal();
+      });
+    }
+  }
   
   if (html_path.includes('works.html')) {
-    const workBtn = document.getElementById("add_work");
-    if (workBtn) {
-      workBtn.addEventListener("click", () => {
-        console.log("Cadastrar trabalho");
-        // Aqui futura chamada do PyWebview API ou modal
-      });
-    }
-  }
-  if (html_path.includes('work_types.html')) {
-    const workBtn = document.getElementById("add_work");
-    if (workBtn) {
-      workBtn.addEventListener("click", () => {
-        console.log("Cadastrar trabalho");
-        // Aqui futura chamada do PyWebview API ou modal
-      });
-    }
-  }
-  if (html_path.includes('prices.html')) {
-    const workBtn = document.getElementById("add_work");
-    if (workBtn) {
-      workBtn.addEventListener("click", () => {
-        console.log("Cadastrar trabalho");
-        // Aqui futura chamada do PyWebview API ou modal
-      });
-    }
-  }
-  if (html_path.includes('notes.html')) {
-    const workBtn = document.getElementById("add_work");
-    if (workBtn) {
-      workBtn.addEventListener("click", () => {
-        console.log("Cadastrar trabalho");
-        // Aqui futura chamada do PyWebview API ou modal
+    const works_Btn = document.getElementById("new_work");
+    if (works_Btn) {
+      works_Btn.addEventListener("click", () => {
+        window.pywebview.api.windows.register_works_modal();
       });
     }
   }
