@@ -74,6 +74,7 @@ function submit_clinic(){
     });
 
     const obj_client = {
+        data: 'client',
         name: name,
         cpf: cpf,
         address: address,
@@ -82,7 +83,13 @@ function submit_clinic(){
         dentist_list: dentist_list,
     }
 
-    console.log(obj_client);
+    console.log(obj_client)
+    window.pywebview.api.register_client(obj_client).then(response => {
+        alert(response);
+        }
+    ).catch(err => {
+        console.error('Erro:', err)
+    });
 }
 
 function submit_dentist(){
