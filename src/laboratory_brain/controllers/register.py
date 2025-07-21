@@ -2,12 +2,11 @@
 
 
 class Register_API():
-    def register_client(first_data, second_data):
-        print(first_data['data'])
+    def register_client(self, first_data, second_data):
+
+        
+        print('Cliente recebido: ', first_data, second_data)
         if first_data['data'] == 'client':
-            print('Cliente recebido: ', first_data, second_data)
-            
-            
-        
-        
+            print('dados de um cliente')
+
         return 'Cliente cadastrado com sucesso'

@@ -1,10 +1,10 @@
-const btn = document.getElementById("new_client");
-btn.addEventListener("click", () => {
-    alert("botao funcionando")
-    window.pywebview.api.windows.register_client_modal();
-})
+export function configurarEventosClients() {
+  const btn = document.getElementById("new_client");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      window.pywebview.api.windows.register_client_modal();
+    });
+  }
 
-
-
-
-
+ 
+}

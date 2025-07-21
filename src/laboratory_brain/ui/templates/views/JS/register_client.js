@@ -80,11 +80,10 @@ function submit_clinic(){
         address: address,
         fone: fone, 
         email: email,
-        dentist_list: dentist_list,
     }
 
-    console.log(obj_client)
-    window.pywebview.api.register_client(obj_client).then(response => {
+    console.log(obj_client, dentist_list)
+    window.pywebview.api.register_client(obj_client, dentist_list).then(response => {
         alert(response);
         }
     ).catch(err => {
