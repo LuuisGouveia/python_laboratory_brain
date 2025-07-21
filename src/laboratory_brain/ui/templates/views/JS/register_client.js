@@ -83,7 +83,7 @@ function submit_clinic(){
     }
 
     console.log(obj_client, dentist_list)
-    window.pywebview.api.register_client(obj_client, dentist_list).then(response => {
+    window.pywebview.api.register(obj_client, dentist_list).then(response => {
         alert(response);
         }
     ).catch(err => {
@@ -99,6 +99,7 @@ function submit_dentist(){
     const email = document.getElementById("client_email_dentist").value;
 
     const obj_client = {
+        data: 'client',
         name: name,
         cpf: cpf,
         address: address,
@@ -107,4 +108,9 @@ function submit_dentist(){
     }
 
     console.log(obj_client)
+    window.pywebview.api.register(obj_client).then(response => {
+        alert(response);
+    }).catch(err => {
+        console.error('Erro:', err);
+    })
 }
