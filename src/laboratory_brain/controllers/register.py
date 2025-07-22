@@ -1,4 +1,4 @@
-
+from laboratory_brain.database.db_manager import register_notes_db, register_clients_db, register_dentist_db, register_prices_db, register_work_types_db, register_works_db
 
 
 class Register_API():
@@ -9,17 +9,27 @@ class Register_API():
         
         if first_data['data'] == 'client':
             print('dados de um cliente')
+            client = {
+                'name': first_data['name'],
+                'cpf_cnpj': first_data['cpf_cnpj'],
+                'address' : first_data['address'],
+                'phone' : first_data['fone'],
+                'email' : first_data['email']
+            }
+            print(client)
+            register_clients_db(client)
+            return 'Dados cadastrados com sucesso'
         
         elif first_data['data'] == 'prices':
             print('dados de um preço')
-            
+            return 'Dados cadastrados com sucesso'
         elif first_data['data'] == 'work_type':
             print('dadsos de um tipo de trabalho')
-            
+            return 'Dados cadastrados com sucesso'
         elif first_data['data'] == 'work':
             print('dados de um trabalho')
-            
+            return 'Dados cadastrados com sucesso'
         elif first_data['data'] == 'note':
             print('dados de uma nota')
-            
-        return 'Dados cadastrado com sucesso'
+            return 'Dados cadastrados com sucesso'
+        

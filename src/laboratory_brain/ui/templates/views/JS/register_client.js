@@ -101,7 +101,7 @@ function submit_dentist(){
     const obj_client = {
         data: 'client',
         name: name,
-        cpf: cpf,
+        cpf_cnpj: cpf,
         address: address,
         fone: fone, 
         email: email,

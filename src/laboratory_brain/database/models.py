@@ -7,8 +7,6 @@ def create_tables():
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS clients (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        type TEXT, -- dentist ou clinic
-        pronoun TEXT,
         name TEXT NOT NULL,
         cpf_cnpj TEXT NOT NULL,
         address TEXT,
@@ -20,16 +18,18 @@ def create_tables():
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS works (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        entry_id INTEGER,
-        client_id INTEGER,
-        work_type_id INTEGER,
-        work_description TEXT,
-        unit_price REAL,
-        quantity INTEGER,
-        total_price REAL,
-        entry_date TEXT,
-        delivery_date TEXT,
-        charged INTEGER DEFAULT 0
+        id_client INTEGER NOT NULL,
+        client_name TEXTE NOT NULL,
+        dentist TEXT,
+        pacient TEXT,
+        work_type_id INTEGER NOT NULL,
+        work_description TEXT NOT NULL,
+        tooth TEXT,
+        quantity INTEGER NOT NULL,
+        unit_price REAL NOT NULL,
+        total_price REAL NOT NULL,
+        date TEXT,
+        charged INTEGER DEFAULT 1
     )
     ''')
 
@@ -43,20 +43,33 @@ def create_tables():
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS price_list (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        client_id INTEGER,
+        id_client INTEGER,
         work_type_id INTEGER,
         unit_price REAL
     )
     ''')
 
     cursor.execute('''
-    CREATE TABLE IF NOT EXISTS invoices (
+    CREATE TABLE IF NOT EXISTS notes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        client_id INTEGER,
-        issue_date TEXT,
-        total_value REAL
+        id_client INTEGER NOT NULL,
+        client_name TEXT NOT NULL,
+        works TEXT NOT NULL,
+        total REAL NOT NULL,
+        date TEXT
     )
     ''')
+    
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS dentist_list (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_client INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        phone TEXT NOT NULL
+    )
+    ''')
+    
+    
 
     conn.commit()
     conn.close()
