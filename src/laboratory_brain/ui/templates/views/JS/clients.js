@@ -6,5 +6,10 @@ export function configurarEventosClients() {
     });
   }
 
- 
 }
+
+export async function load_all_clients() {
+  const clients = await window.pywebview.api.search.search_all_clients(); 
+  console.log(clients);
+}
+

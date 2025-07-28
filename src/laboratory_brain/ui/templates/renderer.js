@@ -1,6 +1,6 @@
-import { configurarEventosClients } from './views/JS/clients.js';
+import { configurarEventosClients, load_all_clients } from './views/JS/clients.js';
 import { configurarEventosWorks } from './views/JS/works.js';
-import { configurarEventosPrices } from './views/JS/prices.js';
+import { configurarEventosPrices, load_select_clients } from './views/JS/prices.js';
 import { configurarEventosNotes } from './views/JS/notes.js';
 import { configurarEventosWorkTypes } from './views/JS/work_types.js';
 
@@ -29,9 +29,9 @@ function load_content(html_path) {
 }
 
 function configurar_eventos_da_pagina(html_path) {
-  if (html_path.includes('clients.html')) configurarEventosClients();
+  if (html_path.includes('clients.html')) configurarEventosClients(), load_all_clients();
   if (html_path.includes('works.html')) configurarEventosWorks();
-  if (html_path.includes('prices.html')) configurarEventosPrices();
+  if (html_path.includes('prices.html')) configurarEventosPrices(), load_select_clients();
   if (html_path.includes('notes.html')) configurarEventosNotes();
   if (html_path.includes('work_types.html')) configurarEventosWorkTypes();
 }

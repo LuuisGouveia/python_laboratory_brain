@@ -1,13 +1,14 @@
 import webview
 import os
-from laboratory_brain.controllers.register import Register_API
+from laboratory_brain.controllers.db_manager_api import Db_manager_API
+
 
 class Windows_Api:
     
     
     
     def register_modal(self, path):
-        api = Register_API()
+        api = Db_manager_API()
         print("Criação de modal ativada")
         base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
         html_path = os.path.join(base_path, 'templates', 'views', 'registers', path)
