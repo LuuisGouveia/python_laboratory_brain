@@ -22,13 +22,26 @@ class Register_API():
         
         elif first_data['data'] == 'prices':
             print('dados de um preço')
-            return 'Dados cadastrados com sucesso'
+            price = {'id_client':first_data['id_client'],
+                      'work_type_id':first_data['work_type_id'],
+                      'unit_price': first_data['unit_price']}
+            try:
+                register_prices_db(price)
+            except Exception as e:
+                return print('Erro ao cadastrar preço', e)
+            else:
+                return 'Dados cadastrados com sucesso'
+        
         elif first_data['data'] == 'work_type':
-            print('dadsos de um tipo de trabalho')
+            print('dados de um tipo de trabalho')
+            work_type = {'description' : first_data['description']}
+            register_work_types_db(work_type)
             return 'Dados cadastrados com sucesso'
+        
         elif first_data['data'] == 'work':
             print('dados de um trabalho')
             return 'Dados cadastrados com sucesso'
+        
         elif first_data['data'] == 'note':
             print('dados de uma nota')
             return 'Dados cadastrados com sucesso'

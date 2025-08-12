@@ -22,16 +22,17 @@ def register_dentist_db(dentist_list):
                         dentist_list.get('name'),
                         dentist_list.get('phone'))
                    )
+    conn.commit()
+    conn.close()
     
 def register_work_types_db(work_type):
-    cursor.execute('''INSERT INTO work_types (id_client, description) VALUES (?,?)''',
-                   (work_type.get('id_client'),
-                   work_type.get('description')))
+    cursor.execute('''INSERT INTO work_types (description) VALUES (?)''',
+                   (work_type.get('description'),))
     conn.commit()
     conn.close()
     
 def register_prices_db(price):
-    cursor.execute('''INSERT INTO prices_list (id_client, work_type_id, unit_price) VALUES (?,?,?)''',
+    cursor.execute('''INSERT INTO price_list (id_client, work_type_id, unit_price) VALUES (?,?,?)''',
                    (price.get('id_client'),
                    price.get('work_type_id'),
                    price.get('unit_price')))
