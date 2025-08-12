@@ -77,3 +77,11 @@ class Search_API:
             ''', (id_client, work_type_id))
             price = cursor.fetchone()
             return price[0] if price else None
+    def search_dentists_by_client(self, id_client):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute('''
+                           SELECT (id, name) FROM dentist_list WHERE id_client = ?''', (id_client))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
