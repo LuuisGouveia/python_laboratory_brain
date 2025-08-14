@@ -16,9 +16,12 @@ class Register_API():
                 'phone' : first_data['fone'],
                 'email' : first_data['email']
             }
-            print(client)
-            register_clients_db(client)
-            return 'Dados cadastrados com sucesso'
+            try:
+                register_clients_db(client)
+            except Exception as e:
+                return print('Erro ao cadastrar Cliente: ', e)
+            else:
+                return 'Dados cadastrados com sucesso'
         
         elif first_data['data'] == 'prices':
             print('dados de um preço')
@@ -35,12 +38,34 @@ class Register_API():
         elif first_data['data'] == 'work_type':
             print('dados de um tipo de trabalho')
             work_type = {'description' : first_data['description']}
-            register_work_types_db(work_type)
-            return 'Dados cadastrados com sucesso'
+            try:
+                register_work_types_db(work_type)
+            except Exception as e:
+                return ("Erro ao cadastrar Tipo de Trabalho: ", e)
+            else:
+                return 'Dados cadastrados com sucesso'
         
         elif first_data['data'] == 'work':
             print('dados de um trabalho')
-            return 'Dados cadastrados com sucesso'
+            work = {
+                'id_client': first_data['id_client'], 
+                'client_name': first_data['client_name'],
+                'dentist': first_data['dentist'],
+                'pacient': first_data['pacient'],
+                'work_type_id': first_data['work_type_id'],
+                'work_description': first_data['work_description'],
+                'tooth': first_data['tooth'],
+                'quantity': first_data['quantity'],
+                'unit_price': first_data['unit_price'],
+                'total_price': first_data['total_price'],
+                'date': first_data['date']
+            }
+            try:
+                register_works_db(work)
+            except Exception as e:
+                return print("Erro ao cadastrar trabalho: ", e)
+            else:
+                return 'Dados cadastrados com sucesso'
         
         elif first_data['data'] == 'note':
             print('dados de uma nota')

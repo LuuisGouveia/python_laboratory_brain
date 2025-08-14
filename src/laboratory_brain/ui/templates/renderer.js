@@ -1,4 +1,5 @@
-import { configurarEventosClients, load_all_clients } from './views/JS/clients.js';
+import { configurarEventosClients } from './views/JS/clients.js';
+import { configurarEventosDentists } from '.views/JS/dentist.js';
 import { configurarEventosWorks } from './views/JS/works.js';
 import { configurarEventosPrices } from './views/JS/prices.js';
 import { configurarEventosNotes } from './views/JS/notes.js';
@@ -8,6 +9,7 @@ const content = document.getElementById("content");
 
 document.getElementById("works").addEventListener("click", () => load_content("./views/tables/works.html"));
 document.getElementById("clients").addEventListener("click", () => load_content("./views/tables/clients.html"));
+document.getElementById("dentists").addEventListener("click", () => load_content("./views/tables/dentist.html"));
 document.getElementById("prices").addEventListener("click", () => load_content("./views/tables/prices.html"));
 document.getElementById("notes").addEventListener("click", () => load_content("./views/tables/notes.html"));
 document.getElementById("work_types").addEventListener("click", () => load_content("./views/tables/work_types.html"));
@@ -29,7 +31,8 @@ function load_content(html_path) {
 }
 
 function configurar_eventos_da_pagina(html_path) {
-  if (html_path.includes('clients.html')) configurarEventosClients(), load_all_clients();
+  if (html_path.includes('clients.html')) configurarEventosClients();
+  if (html_path.includes('dentist.html')) configurarEventosDentists();
   if (html_path.includes('works.html')) configurarEventosWorks();
   if (html_path.includes('prices.html')) configurarEventosPrices();
   if (html_path.includes('notes.html')) configurarEventosNotes();

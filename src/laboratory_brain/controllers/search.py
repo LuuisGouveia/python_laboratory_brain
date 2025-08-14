@@ -77,6 +77,7 @@ class Search_API:
             ''', (id_client, work_type_id))
             price = cursor.fetchone()
             return price[0] if price else None
+        
     def search_dentists_by_client(self, id_client):
         with get_connection() as conn:
             conn.row_factory = sqlite3.Row
