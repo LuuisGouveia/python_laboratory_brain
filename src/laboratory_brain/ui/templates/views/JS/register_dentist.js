@@ -1,3 +1,13 @@
+window.addEventListener('pywebviewready', () => {
+    load_select_clients();
+
+    const saveBtn = document.getElementById('dentist_submit');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', buildDentistObject);
+    }
+});
+
+
 async function load_select_clients() {
     const select = document.getElementById('client_select');
     
@@ -14,6 +24,25 @@ async function load_select_clients() {
     }
 }
 
-function buildDentistObject(){
+
+function buildDentistObject() {
+    const clientSelect = document.getElementById('client_select');
+    const dentistName = document.getElementById('dentist_name').value;
+    const dentistFone = document.getElementById('dentist_fone').value;
+
+    const dentistData = {
+        data: 'dentist',
+        id_client: clientSelect.value,
+        client_name: clientSelect.options[clientSelect.selectedIndex].text,
+        dentist_name: dentistName,
+        dentistName: dentistFone
+    };
+
+    console.log(dentistData);
+    window.pywebview.api.register.register(dentistData).then(response => {
+        alert(response);
+    }).catch(err =>{
+        console.error('Erro:', err)
+    });
     
 }

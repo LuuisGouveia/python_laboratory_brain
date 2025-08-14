@@ -1,5 +1,5 @@
 import { configurarEventosClients } from './views/JS/clients.js';
-import { configurarEventosDentists } from '.views/JS/dentist.js';
+import { configurarEventosDentists } from './views/JS/dentists.js';
 import { configurarEventosWorks } from './views/JS/works.js';
 import { configurarEventosPrices } from './views/JS/prices.js';
 import { configurarEventosNotes } from './views/JS/notes.js';
