@@ -122,7 +122,7 @@ function buildWorkObject() {
     const typeSelect = document.getElementById('work_type');
     const tooth = document.getElementById('tooth').value;
     const clientID = document.getElementById('client_ID').value;
-    const patientName = document.querySelector('#work_form input[placeholder="Nome do Paciente"]').value.trim();
+    const pacientName = document.querySelector('#work_form input[placeholder="Nome do Paciente"]').value.trim();
     const typeID = document.getElementById('type_ID').value;
     const quantity = document.getElementById('quantity').value;
     const unitPrice = document.getElementById('unit').value;
@@ -134,7 +134,7 @@ function buildWorkObject() {
         id_client: clientID,
         client_name: clientSelect.options[clientSelect.selectedIndex]?.text || '',
         dentist: dentistSelect.options[dentistSelect.selectedIndex]?.text || '',
-        patient: patientName,
+        pacient: pacientName,
         work_type_id: typeID,
         work_description: typeSelect.options[typeSelect.selectedIndex]?.text || '',
         tooth: tooth,

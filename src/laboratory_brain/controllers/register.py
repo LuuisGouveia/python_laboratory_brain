@@ -1,5 +1,5 @@
 from laboratory_brain.database.db_manager import register_notes_db, register_clients_db, register_dentist_db, register_prices_db, register_work_types_db, register_works_db
-
+import sqlite3
 
 class Register_API():
     def register(self, first_data, second_data=None):
@@ -40,8 +40,13 @@ class Register_API():
             work_type = {'description' : first_data['description']}
             try:
                 register_work_types_db(work_type)
+            
+            except sqlite3.ProgrammingError as e:
+                return(f"Erro ao cadastrar Tipo de Trabalho: ${str(e)}")
+
             except Exception as e:
-                return ("Erro ao cadastrar Tipo de Trabalho: ", e)
+                return (f"Erro ao cadastrar Tipo de Trabalho: ${str(e)}")            
+            
             else:
                 return 'Dados cadastrados com sucesso'
         
@@ -71,3 +76,16 @@ class Register_API():
             print('dados de uma nota')
             return 'Dados cadastrados com sucesso'
         
+        elif first_data['data'] == 'dentist':
+            print('dados de um dentista')
+            dentist = {
+                'id_client': first_data['id_client'],
+                'name': first_data['name'],
+                'phone': first_data['phone']
+            }
+            try:
+                register_dentist_db(dentist)
+            except Exception as e:
+                return print("Erro ao cadastrar dentista", e)
+            else:
+                return 'Dados cadastrados com sucesso'

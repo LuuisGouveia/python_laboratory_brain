@@ -33,9 +33,8 @@ function buildDentistObject() {
     const dentistData = {
         data: 'dentist',
         id_client: clientSelect.value,
-        client_name: clientSelect.options[clientSelect.selectedIndex].text,
-        dentist_name: dentistName,
-        dentistName: dentistFone
+        name: dentistName,
+        phone: dentistFone
     };
 
     console.log(dentistData);

@@ -4,6 +4,8 @@ conn = get_connection()
 cursor = conn.cursor()
 
 def register_clients_db(client):
+    conn = get_connection()
+    cursor = conn.cursor()
     cursor.execute(''' INSERT INTO clients (name, cpf_cnpj, address, phone, email)
                    VALUES (?,?,?,?,?)
                    ''', (client.get('name'),
@@ -14,8 +16,11 @@ def register_clients_db(client):
                    )
     conn.commit()
     conn.close()
+    
 
 def register_dentist_db(dentist_list):
+    conn = get_connection()
+    cursor = conn.cursor()
     cursor.execute(''' INSERT INTO dentist_list (id_client, name, phone)
                    VALUES (?,?,?)
                    ''', (dentist_list.get('id_client'),
@@ -26,12 +31,17 @@ def register_dentist_db(dentist_list):
     conn.close()
     
 def register_work_types_db(work_type):
+    conn = get_connection()
+    cursor = conn.cursor()
     cursor.execute('''INSERT INTO work_types (description) VALUES (?)''',
                    (work_type.get('description'),))
     conn.commit()
     conn.close()
     
+    
 def register_prices_db(price):
+    conn = get_connection()
+    cursor = conn.cursor()
     cursor.execute('''INSERT INTO price_list (id_client, work_type_id, unit_price) VALUES (?,?,?)''',
                    (price.get('id_client'),
                    price.get('work_type_id'),
@@ -39,7 +49,10 @@ def register_prices_db(price):
     conn.commit()
     conn.close()
     
+    
 def register_works_db(work):
+    conn = get_connection()
+    cursor = conn.cursor()
     cursor.execute('''INSERT INTO works (id_client, client_name, dentist, pacient, work_type_id, work_description, tooth, quantity, unit_price, total_price, date)
                    VALUES (?,?,?,?,?,?,?,?,?,?,?)''',
                    (work.get('id_client'),
@@ -56,7 +69,10 @@ def register_works_db(work):
     conn.commit()
     conn.close()
     
+    
 def register_notes_db(note):
+    conn = get_connection()
+    cursor = conn.cursor()
     cursor.execute('''INSERT INTO notes (id_client, client_name, works, total, date)
                    VALUES (?,?,?,?,?)''',
                    (note.get('id_client'),
@@ -67,3 +83,14 @@ def register_notes_db(note):
     conn.commit()
     conn.close()
     
+    
+def register_dentist_db(dentist):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute('''INSERT INTO dentist_list (id_client, name, phone)
+                   VALUES (?,?,?)''',
+                   (dentist.get('id_client'),
+                   dentist.get('name'),
+                   dentist.get('phone')))
+    conn.commit()
+    conn.close()
