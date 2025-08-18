@@ -107,3 +107,27 @@ class Search_API:
                            SELECT * FROM dentist_list WHERE id_client = ?''', (id_client))
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
+        
+    def search_work_types(self):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM work_types")
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+        
+    def search_all_works(self):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM works")
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+        
+    def search_works_by_client(self, id_client):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM works WHERE id_client = ?", id_client)
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
