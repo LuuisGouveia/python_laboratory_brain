@@ -1,4 +1,7 @@
 export function configurarEventosNotes() {
+  
+  load_select_clients()
+  load_all_notes()
   const btn = document.getElementById("new_note");
   if (btn) {
     btn.addEventListener("click", () => {
@@ -7,4 +10,85 @@ export function configurarEventosNotes() {
   }
 
  
+}
+
+const table = document.getElementById('noteTable');
+
+
+async function load_select_clients(){
+
+  const select = document.getElementById('note_client');
+  console.log("Elemento select:", select);
+  select.innerHTML = ''; 
+
+  try {
+    const clients = await window.pywebview.api.search.search_all_clients();
+    console.log(clients);
+
+    
+    const placeholder = document.createElement('option');
+    placeholder.textContent = "Selecione um cliente";
+    placeholder.value = "";
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    select.appendChild(placeholder);
+
+    clients.forEach(client => {
+      const option = document.createElement('option');
+      option.textContent = client.name;
+      option.value = client.id; 
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Erro ao carregar clientes:", error);
+  }
+  select.addEventListener('change', ()=>{
+    table.innerHTML = '';
+    load_notes_by_client()
+  })
+  
+}
+
+async function load_all_notes(){
+  const table = document.getElementById('noteTable');
+  const notes = await window.pywebview.api.search.search_all_notes()
+  console.log(notes);
+  notes.forEach(note =>{
+    const tr = document.createElement('tr');
+    const td1 = document.createElement('td');
+    td1.innerText = note.id;
+    const td2 = document.createElement('td');
+    td2.innerText = note.id_client;
+    const td3 = document.createElement('td');
+    td3.innerText = note.client_name;
+    const td4 = document.createElement('td');
+    td4.innerText = note.total.toFixed(2);
+    const td5 = document.createElement('td');
+    td5.innerText = note.date;
+    const td6 = document.createElement('td');
+    const editBtn = document.createElement('button');
+      editBtn.innerText = "✏️ Editar";
+      editBtn.classList.add("btn", "btn-edit");
+      editBtn.addEventListener("click", () => {
+        window.pywebview.api.windows.register_modal('edit_note.html', dentist.id_dentist);
+      });
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.innerText = "🗑️ Excluir";
+      deleteBtn.classList.add("btn", "btn-delete");
+      deleteBtn.addEventListener("click", async () => {
+        if (confirm(`Tem certeza que deseja excluir a nota? "${dentist.name}"?`)) {
+          await window.pywebview.api.dentists.delete_dentist(dentist.id_dentist);
+          load_all_notes(); 
+        }
+      });
+      const pdfBtn = document.createElement('button');
+      pdfBtn.innerText = 'PDF';
+      pdfBtn.classList.add('btn', 'btn-pdf');
+
+      td6.append(editBtn, deleteBtn, pdfBtn);
+      tr.append(td1, td2, td3, td4, td5, td6);
+      table.appendChild(tr);
+  })
+
 }

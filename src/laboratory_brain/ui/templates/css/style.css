@@ -251,3 +251,7 @@ table td {
 .invisible_form{
   display: none;
 }
+
+.modal {
+  overflow: auto;
+}

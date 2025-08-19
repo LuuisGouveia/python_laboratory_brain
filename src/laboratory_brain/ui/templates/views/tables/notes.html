@@ -2,12 +2,10 @@
 <body>
     <header>
         <div>
-            <input type="text" id="notes_client_search" placeholder="Pesquisa por nome de Cliente">
+            <select name="note_client" id="note_client">
+                <option value="">Selecione o Cliente</option>
+            </select>
             <input type="number" id="notes_ID_search" placeholder="Pesquisa por Numero de Nota">
-            <label for="search_date_start">Inicio</label>
-            <input type="date" id="search_date_start">
-            <label for="search_date_end">Fim</label>
-            <input type="date" id="search_date_end">
             <button type="button" id="search_btn" class="btn">Pesquisar</button>
         </div>
         <div>
@@ -25,6 +23,9 @@
                 <th>Data</th>
                 <th>Configurações</th>
             </tr>
+            <tbody id="noteTable">
+
+            </tbody>
         </table>
     </div>
     
