@@ -76,7 +76,8 @@ async function load_all_notes(){
       editBtn.innerText = "✏️ Editar";
       editBtn.classList.add("btn", "btn-edit");
       editBtn.addEventListener("click", () => {
-        window.pywebview.api.windows.register_modal('edit_note.html', dentist.id_dentist);
+        const noteEdit = {data: 'note', id:note.id};
+        window.pywebview.api.windows.register_modal('edit_note.html', noteEdit);
       });
 
       const deleteBtn = document.createElement('button');

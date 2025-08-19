@@ -1,5 +1,6 @@
 import sqlite3
 from laboratory_brain.database.connection import get_connection
+import json
 
 class Search_API:
     
@@ -100,6 +101,7 @@ class Search_API:
             cursor.execute('SELECT id, id_client, client_name, total, date FROM notes WHERE id_client = ?', id_client)
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
+    
     def search_notes_by_id(self, id):
         with get_connection() as conn:
             conn.row_factory = sqlite3.Row
@@ -107,3 +109,19 @@ class Search_API:
             cursor.execute('SELECT id, id_client, client_name, total, date FROM notes WHERE id = ?', id)
             note = cursor.fetchone();
             return note[0] if note else None
+    
+    def search_work_in_notes(self, note_id: int):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute('SELECT works FROM notes WHERE id = ?', (note_id,))
+            row = cursor.fetchone()
+
+            if row and row["works"]:
+                try:
+                    
+                    works = json.loads(row["works"])
+                    return works
+                except json.JSONDecodeError:
+                    return []
+            return []
