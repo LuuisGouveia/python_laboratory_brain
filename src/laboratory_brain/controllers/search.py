@@ -89,8 +89,21 @@ class Search_API:
         with get_connection() as conn:
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
-            cursor.execute('SELECT * FROM notes')
+            cursor.execute('SELECT id, id_client, client_name, total, date FROM notes')
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
     
-   
+    def search_notes_by_client(self, id_client):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute('SELECT id, id_client, client_name, total, date FROM notes WHERE id_client = ?', id_client)
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+    def search_notes_by_id(self, id):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute('SELECT id, id_client, client_name, total, date FROM notes WHERE id = ?', id)
+            note = cursor.fetchone();
+            return note[0] if note else None
