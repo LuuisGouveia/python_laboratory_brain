@@ -75,7 +75,11 @@ function buildNoteObject(){
     const clientName = select.options[select.selectedIndex].text;
 
     const total = currentWorks.reduce((sum, w) => sum + w.total_price, 0);
-
+    const desconto = document.getElementById('desconto').value
+    if (desconto > 0){
+        total -= desconto;
+    }
+    
     const note = {
         data: 'note',
         id_client: clientId,

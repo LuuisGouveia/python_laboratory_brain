@@ -7,35 +7,16 @@
     <title>Clientes</title>
 </head>
 <body>
-    <header>
-        <select name="client_type" id="client_type">
-            <option value="" disabled selected>Selecione o Tipo De Cliente</option>
-            <option value="dentist">Dentista</option>
-            <option value="clinic">Clinica</option>
-        </select>
-    </header>
 
-    <div id="dentist_form" class="invisible_form">
+    <div id="dentist_form">
         <input type="text" id="client_name_dentist" placeholder="Nome do Cliente">
         <input type="text" id="client_cpf_dentist" placeholder="CPF/CNPJ">
         <input type="text" id="client_address_dentist" placeholder="Endereço">
         <input type="text" id="client_fone_dentist" placeholder="Telefone">
         <input type="text" id="client_email_dentist" placeholder="E-mail">
     </div>
-    <div id="clinic_form" class="invisible_form">
-        <input type="text" id="client_name_clinic" placeholder="Nome do Cliente">
-        <input type="text" id="client_cpf_clinic" placeholder="CPF/CNPJ">
-        <input type="text" id="client_address_clinic" placeholder="Endereço">
-        <input type="text" id="client_fone_clinic" placeholder="Telefone">
-        <input type="text" id="client_email_clinic" placeholder="E-mail">
-        <button class="btn" id="dentist_add_clinic">Adionar dentista</button>
-        <button class="btn" id="dentist_delete_clinic">Deletar dentista</button>
-        <div id="dentist_container">
-            <div id="dentist_list_box"></div>
-        </div>
-    </div>
     <footer>
-        <button type="submit" class="btn" id="client_submit">Cadastrar Cliente</button>
+        <button type="button" class="btn" id="client_submit">Cadastrar Cliente</button>
     </footer>
     <script src="../JS/register_client.js"></script>
 </body>

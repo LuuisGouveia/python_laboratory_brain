@@ -101,6 +101,7 @@ class Register_API():
             try:
                 register_dentist_db(dentist)
             except Exception as e:
-                return print("Erro ao cadastrar dentista", e)
+                return print("Erro ao cadastrar dentista", str(e))
             else:
                 return 'Dados cadastrados com sucesso'
+    

@@ -255,3 +255,9 @@ table td {
 .modal {
   overflow: auto;
 }
+.modal_edit{
+  background-color: var(--bg-color);
+  width: 68.3dvw;
+  height: calc(100dvh - 5rem);
+  overflow: scroll;
+}

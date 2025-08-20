@@ -72,13 +72,6 @@ async function load_all_notes(){
     const td5 = document.createElement('td');
     td5.innerText = note.date;
     const td6 = document.createElement('td');
-    const editBtn = document.createElement('button');
-      editBtn.innerText = "✏️ Editar";
-      editBtn.classList.add("btn", "btn-edit");
-      editBtn.addEventListener("click", () => {
-        const noteEdit = {data: 'note', id:note.id};
-        window.pywebview.api.windows.register_modal('edit_note.html', noteEdit);
-      });
 
       const deleteBtn = document.createElement('button');
       deleteBtn.innerText = "🗑️ Excluir";
@@ -93,13 +86,15 @@ async function load_all_notes(){
       pdfBtn.innerText = 'PDF';
       pdfBtn.classList.add('btn', 'btn-pdf');
 
-      td6.append(editBtn, deleteBtn, pdfBtn);
+      td6.append(deleteBtn, pdfBtn);
       tr.append(td1, td2, td3, td4, td5, td6);
       table.innerHTML = '';
       table.appendChild(tr);
   })
 
 }
+
+
 
 async function load_notes_by_client(id_client){
 

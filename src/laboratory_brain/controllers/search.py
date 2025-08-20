@@ -20,6 +20,18 @@ class Search_API:
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
     
+    def get_client(self, id_client):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT * 
+                FROM clients 
+                WHERE id = ?
+            ''', (id_client,))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+    
     def search_prices(self, id_client, work_type_id):
         with get_connection() as conn:
             conn.row_factory = sqlite3.Row
@@ -82,7 +94,7 @@ class Search_API:
         with get_connection() as conn:
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM works WHERE id_client = ?", id_client)
+            cursor.execute("SELECT * FROM works WHERE id_client = ? AND charged = 1", id_client)
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
         
