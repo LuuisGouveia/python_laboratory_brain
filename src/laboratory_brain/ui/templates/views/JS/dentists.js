@@ -92,15 +92,19 @@ async function load_dentists(clientId) {
       editBtn.innerText = "✏️ Editar";
       editBtn.classList.add("btn", "btn-edit");
       editBtn.addEventListener("click", () => {
-        window.pywebview.api.windows.register_modal('edit_dentist.html', dentist.id_dentist);
+        edit_dentist(dentist.id)
       });
 
       const deleteBtn = document.createElement('button');
       deleteBtn.innerText = "🗑️ Excluir";
       deleteBtn.classList.add("btn", "btn-delete");
-      deleteBtn.addEventListener("click", async () => {
+      deleteBtn.addEventListener("click", () => {
         if (confirm(`Tem certeza que deseja excluir o dentista "${dentist.name}"?`)) {
-          await window.pywebview.api.dentists.delete_dentist(dentist.id_dentist);
+          window.pywebview.api.deletor.delete_dentist(dentist.id).then(response =>{
+            alert(response)
+          }).catch(err =>{
+            console.error('Erro ao excluir dentista',err)
+          })
           load_dentists(clientId); 
         }
       });
@@ -113,4 +117,50 @@ async function load_dentists(clientId) {
   } catch (error) {
     console.error("Erro ao carregar dentistas:", error);
   }
+}
+
+async function edit_dentist(id_dentist){
+  const dentists = await window.pywebview.api.search.get_dentist(id_dentist);
+  console.log(dentists);
+  const container = document.getElementById('content_box');
+  const box = document.createElement('div');
+  box.classList.add('modal_edit');
+  box.innerHTML = `
+        <input type="text" id="name">
+        <input type="text" id="phone">
+        <div>
+         <button type="button" id="save">
+            Salvar Alterações
+         </button>
+         <button type="button" id="cancel">
+            Cancelar
+         </button>
+        </div>
+    
+  `
+  container.appendChild(box);
+
+  const name = document.getElementById('name')
+
+  const phone = document.getElementById('phone')
+
+  dentists.forEach(dentist =>{
+    name.value = dentist.name,
+    phone.value = dentist.phone
+  })
+
+  document.getElementById('save').addEventListener('click', ()=>{
+    const obj = {
+      name : name.value,
+      phone : phone.value,
+    }
+    window.pywebview.api.editor.edit_dentist(id_client, obj).then(response =>{
+      alert(response);
+    }).catch(err=>{
+      console.log('Erro ao editar dados', err);
+    })
+  })
+  document.getElementById('cancel').addEventListener('click', ()=>{
+    box.remove();
+  })
 }

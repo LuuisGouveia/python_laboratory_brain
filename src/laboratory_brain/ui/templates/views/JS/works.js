@@ -86,16 +86,20 @@ async function load_works(){
     editBtn.innerText = "✏️ Editar";
     editBtn.classList.add("btn", "btn-edit");
     editBtn.addEventListener("click", () => {
-      //aqui ficarara funcao de modal de edição
+      edit_work(work.id);
     });
 
     const deleteBtn = document.createElement('button');
     deleteBtn.innerText = "🗑️ Excluir";
     deleteBtn.classList.add("btn", "btn-delete");
-    deleteBtn.addEventListener("click", async () => {
-      if (confirm(`Tem certeza que deseja excluir o tipo de trabalho? "${dentist.name}"?`)) {
-        // aqui ficara função de deletar
-        load_work_types(); 
+    deleteBtn.addEventListener("click", () => {
+      if (confirm(`Tem certeza que deseja excluir o trabalho? "${work.id}"?`)) {
+        window.pywebview.api.deletor.delete_work(work.id).then(response =>{
+            alert(response)
+          }).catch(err =>{
+            console.error('Erro ao excluir trabalho',err)
+          })
+        load_works(); 
       }
     });
 
@@ -139,25 +143,24 @@ async function filter_works_by_client(id_client){
     const td13 = document.createElement('td');
     td13.innerText = work.charged;
     const td14 = document.createElement('td');
-    const editBtn = document.createElement('button');
-    editBtn.innerText = "✏️ Editar";
-    editBtn.classList.add("btn", "btn-edit");
-    editBtn.addEventListener("click", () => {
-      //aqui ficarara funcao de modal de edição
-    });
 
     const deleteBtn = document.createElement('button');
     deleteBtn.innerText = "🗑️ Excluir";
     deleteBtn.classList.add("btn", "btn-delete");
-    deleteBtn.addEventListener("click", async () => {
-      if (confirm(`Tem certeza que deseja excluir o tipo de trabalho? "${dentist.name}"?`)) {
-        // aqui ficara função de deletar
-        load_work_types(); 
+    deleteBtn.addEventListener("click", () => {
+      if (confirm(`Tem certeza que deseja excluir o trabalho? "${work.id}"?`)) {
+        window.pywebview.api.deletor.delete_work(work.id).then(response =>{
+            alert(response)
+          }).catch(err =>{
+            console.error('Erro ao excluir trabalho',err)
+          })
+        load_works(); 
       }
     });
 
-    td14.append(editBtn, deleteBtn);
+    td14.append(deleteBtn);
     tr.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11, td12, td13, td14);
     table.appendChild(tr);
   });
 }
+

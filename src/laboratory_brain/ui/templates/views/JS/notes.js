@@ -76,9 +76,13 @@ async function load_all_notes(){
       const deleteBtn = document.createElement('button');
       deleteBtn.innerText = "🗑️ Excluir";
       deleteBtn.classList.add("btn", "btn-delete");
-      deleteBtn.addEventListener("click", async () => {
-        if (confirm(`Tem certeza que deseja excluir a nota? "${dentist.name}"?`)) {
-          await window.pywebview.api.dentists.delete_dentist(dentist.id_dentist);
+      deleteBtn.addEventListener("click", () => {
+        if (confirm(`Tem certeza que deseja excluir a nota? "${note.id}"?`)) {
+          window.pywebview.api.deletor.delete_note(note.id).then(response =>{
+          alert(response)
+        }).catch(err =>{
+          console.error('Erro ao excluir nota',err)
+        })
           load_all_notes(); 
         }
       });
@@ -116,31 +120,29 @@ async function load_notes_by_client(id_client){
     const td5 = document.createElement('td');
     td5.innerText = note.date;
     const td6 = document.createElement('td');
-    const editBtn = document.createElement('button');
-      editBtn.innerText = "✏️ Editar";
-      editBtn.classList.add("btn", "btn-edit");
-      editBtn.addEventListener("click", () => {
-        window.pywebview.api.windows.register_modal('edit_note.html', dentist.id_dentist);
-      });
 
-      const deleteBtn = document.createElement('button');
-      deleteBtn.innerText = "🗑️ Excluir";
-      deleteBtn.classList.add("btn", "btn-delete");
-      deleteBtn.addEventListener("click", async () => {
-        if (confirm(`Tem certeza que deseja excluir a nota? "${dentist.name}"?`)) {
-          await window.pywebview.api.dentists.delete_dentist(dentist.id_dentist);
-          load_all_notes(); 
-        }
-      });
-      const pdfBtn = document.createElement('button');
-      pdfBtn.innerText = 'PDF';
-      pdfBtn.classList.add('btn', 'btn-pdf');
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerText = "🗑️ Excluir";
+    deleteBtn.classList.add("btn", "btn-delete");
+    deleteBtn.addEventListener("click", () => {
+      if (confirm(`Tem certeza que deseja excluir a nota? "${note.id}"?`)) {
+        window.pywebview.api.deletor.delete_note(note.id).then(response =>{
+          alert(response)
+        }).catch(err =>{
+          console.error('Erro ao excluir nota',err)
+        })
+        load_all_notes(); 
+      }
+    });
+    const pdfBtn = document.createElement('button');
+    pdfBtn.innerText = 'PDF';
+    pdfBtn.classList.add('btn', 'btn-pdf');
 
-      td6.append(editBtn, deleteBtn, pdfBtn);
-      tr.append(td1, td2, td3, td4, td5, td6);
-      table.innerHTML='';
-      table.appendChild(tr);
-    })
+    td6.append(editBtn, deleteBtn, pdfBtn);
+    tr.append(td1, td2, td3, td4, td5, td6);
+    table.innerHTML='';
+    table.appendChild(tr);
+  })
 
 }
 
@@ -163,29 +165,27 @@ async function search_note(id){
     const td5 = document.createElement('td');
     td5.innerText = note.date;
     const td6 = document.createElement('td');
-    const editBtn = document.createElement('button');
-      editBtn.innerText = "✏️ Editar";
-      editBtn.classList.add("btn", "btn-edit");
-      editBtn.addEventListener("click", () => {
-        window.pywebview.api.windows.register_modal('edit_note.html', dentist.id_dentist);
-      });
 
-      const deleteBtn = document.createElement('button');
-      deleteBtn.innerText = "🗑️ Excluir";
-      deleteBtn.classList.add("btn", "btn-delete");
-      deleteBtn.addEventListener("click", async () => {
-        if (confirm(`Tem certeza que deseja excluir a nota? "${dentist.name}"?`)) {
-          await window.pywebview.api.dentists.delete_dentist(dentist.id_dentist);
-          load_all_notes(); 
-        }
-      });
-      const pdfBtn = document.createElement('button');
-      pdfBtn.innerText = 'PDF';
-      pdfBtn.classList.add('btn', 'btn-pdf');
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerText = "🗑️ Excluir";
+    deleteBtn.classList.add("btn", "btn-delete");
+    deleteBtn.addEventListener("click", () => {
+      if (confirm(`Tem certeza que deseja excluir a nota? "${note.id}"?`)) {
+        window.pywebview.api.deletor.delete_note(note.id).then(response =>{
+          alert(response)
+        }).catch(err =>{
+          console.error('Erro ao excluir nota',err)
+        })
+        load_all_notes(); 
+      }
+    });
+    const pdfBtn = document.createElement('button');
+    pdfBtn.innerText = 'PDF';
+    pdfBtn.classList.add('btn', 'btn-pdf');
 
-      td6.append(editBtn, deleteBtn, pdfBtn);
-      tr.append(td1, td2, td3, td4, td5, td6);
-      table.innerHTML='';
-      table.appendChild(tr);
-    })
+    td6.append(deleteBtn, pdfBtn);
+    tr.append(td1, td2, td3, td4, td5, td6);
+    table.innerHTML='';
+    table.appendChild(tr);
+  })
 }

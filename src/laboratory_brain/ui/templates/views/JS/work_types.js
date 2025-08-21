@@ -29,15 +29,19 @@ async function load_work_types(){
     editBtn.innerText = "✏️ Editar";
     editBtn.classList.add("btn", "btn-edit");
     editBtn.addEventListener("click", () => {
-      //aqui ficarara funcao de modal de edição
+      edit_type(type.id)
     });
 
     const deleteBtn = document.createElement('button');
     deleteBtn.innerText = "🗑️ Excluir";
     deleteBtn.classList.add("btn", "btn-delete");
-    deleteBtn.addEventListener("click", async () => {
-      if (confirm(`Tem certeza que deseja excluir o tipo de trabalho? "${dentist.name}"?`)) {
-        // aqui ficara função de deletar
+    deleteBtn.addEventListener("click", () => {
+      if (confirm(`Tem certeza que deseja excluir o tipo de trabalho? "${type.description}"?`)) {
+        window.pywebview.api.deletor.delete_work_type(type.id).then(response =>{
+            alert(response)
+          }).catch(err =>{
+            console.error('Erro ao excluir tipo',err)
+          })
         load_work_types(); 
       }
     });
@@ -47,4 +51,45 @@ async function load_work_types(){
     table.appendChild(tr);
 
   });
+}
+
+async function edit_type(id_type){
+  const types = await window.pywebview.api.search.get_type(id_type);
+  console.log(types);
+  const container = document.getElementById('content_box');
+  const box = document.createElement('div');
+  box.classList.add('modal_edit');
+  box.innerHTML = `
+        <input type="text" id="name">
+        <div>
+         <button type="button" id="save">
+            Salvar Alterações
+         </button>
+         <button type="button" id="cancel">
+            Cancelar
+         </button>
+        </div>
+    
+  `
+  container.appendChild(box);
+
+  const description = document.getElementById('name')
+
+  types.forEach(type =>{
+    description.value = type.description;
+  })
+
+  document.getElementById('save').addEventListener('click', ()=>{
+    const obj = {
+      description: description.value
+    }
+    window.pywebview.api.editor.edit_client(id_type, obj).then(response =>{
+      alert(response);
+    }).catch(err=>{
+      console.log('Erro ao editar dados', err);
+    })
+  })
+  document.getElementById('cancel').addEventListener('click', ()=>{
+    box.remove();
+  })
 }

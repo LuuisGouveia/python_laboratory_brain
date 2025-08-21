@@ -38,7 +38,7 @@ async function load_clients(){
   td6.innerText = client.email;
 
   const td7 = document.createElement('td');
-  // Botões de configuração
+
   const editBtn = document.createElement('button');
   editBtn.innerText = "✏️ Editar";
   editBtn.classList.add("btn", "btn-edit");
@@ -49,10 +49,14 @@ async function load_clients(){
   const deleteBtn = document.createElement('button');
   deleteBtn.innerText = "🗑️ Excluir";
   deleteBtn.classList.add("btn", "btn-delete");
-  deleteBtn.addEventListener("click", async () => {
+  deleteBtn.addEventListener("click", () => {
     if (confirm(`Tem certeza que deseja excluir o cliente "${client.name}"?`)) {
-      await window.pywebview.api.clients.delete_client(client.id_client);
-      load_clients(); // recarrega tabela após exclusão
+      window.pywebview.api.deletor.delete_client(client.id).then(response =>{
+            alert(response)
+          }).catch(err =>{
+            console.error('Erro ao excluir cliente',err)
+          })
+      load_clients();
     }
   });
 
@@ -66,15 +70,15 @@ async function load_clients(){
 async function edit_client(id_client){
   const clients = await window.pywebview.api.search.get_client(id_client);
   console.log(clients);
-  // const container = document.getElementById('content_box');
-  const box = document.getElementById('content_box');
+  const container = document.getElementById('content_box');
+  const box = document.createElement('div');
+  box.classList.add('modal_edit');
   box.innerHTML = `
-    <div class="modal_edit">
-       <input type="text" id="name">
-       <input type="number" id="cpf">
-       <input type="text" id="address">
-       <input type="text" id="phone">
-       <input type="text" id="email">
+        <input type="text" id="name">
+        <input type="number" id="cpf">
+        <input type="text" id="address">
+        <input type="text" id="phone">
+        <input type="text" id="email">
         <div>
          <button type="button" id="save">
             Salvar Alterações
@@ -83,7 +87,6 @@ async function edit_client(id_client){
             Cancelar
          </button>
         </div>
-    </div>
     
   `
   container.appendChild(box);

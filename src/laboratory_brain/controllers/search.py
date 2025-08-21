@@ -55,6 +55,18 @@ class Search_API:
             ''', (id_client))
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
+        
+    def get_price(self, id_price):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT * 
+                FROM price_list
+                WHERE id = ?
+            ''', (id_price,))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
     
     def search_all_prices(self):
         with get_connection() as conn:
@@ -74,11 +86,35 @@ class Search_API:
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
         
+    def get_dentist(self, id_dentist):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT * 
+                FROM dentist_list 
+                WHERE id = ?
+            ''', (id_dentist,))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+        
     def search_work_types(self):
         with get_connection() as conn:
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM work_types")
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+    
+    def get_type(self, id_type):
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT * 
+                FROM work_types
+                WHERE id = ?
+            ''', (id_type,))
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
         

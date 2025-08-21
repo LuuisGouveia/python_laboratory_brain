@@ -73,15 +73,19 @@ async function load_prices(){
     editBtn.innerText = "✏️ Editar";
     editBtn.classList.add("btn", "btn-edit");
     editBtn.addEventListener("click", () => {
-      window.pywebview.api.windows.register_modal('edit_dentist.html', dentist.id_dentist);
+      edit_price(price.id);
     });
 
     const deleteBtn = document.createElement('button');
     deleteBtn.innerText = "🗑️ Excluir";
     deleteBtn.classList.add("btn", "btn-delete");
-    deleteBtn.addEventListener("click", async () => {
-      if (confirm(`Tem certeza que deseja excluir o dentista "${dentist.name}"?`)) {
-        await window.pywebview.api.dentists.delete_price(dentist.id_dentist);
+    deleteBtn.addEventListener("click", () => {
+      if (confirm(`Tem certeza que deseja excluir o dentista "${price.id}"?`)) {
+        window.pywebview.api.deletor.delete_price(price.id).then(response =>{
+            alert(response)
+          }).catch(err =>{
+            console.error('Erro ao excluir preço',err)
+          })
         load_prices(); 
       }
     });
@@ -117,14 +121,14 @@ async function filter_prices(id_client){
     editBtn.innerText = "✏️ Editar";
     editBtn.classList.add("btn", "btn-edit");
     editBtn.addEventListener("click", () => {
-      window.pywebview.api.windows.register_modal('edit_dentist.html', dentist.id_dentist);
+      edit_price(price.id);
     });
 
     const deleteBtn = document.createElement('button');
     deleteBtn.innerText = "🗑️ Excluir";
     deleteBtn.classList.add("btn", "btn-delete");
     deleteBtn.addEventListener("click", async () => {
-      if (confirm(`Tem certeza que deseja excluir o dentista "${dentist.name}"?`)) {
+      if (confirm(`Tem certeza que deseja excluir o dentista "${price.id}"?`)) {
         await window.pywebview.api.dentists.delete_price(dentist.id_dentist);
         load_prices(); 
       }
@@ -134,4 +138,45 @@ async function filter_prices(id_client){
     tr.append(td1, td2, td3, td4, td5);
     table.appendChild(tr);
   });
+}
+
+async function edit_price(id_price){
+  const prices = await window.pywebview.api.search.get_price(id_price);
+  console.log(prices);
+  const container = document.getElementById('content_box');
+  const box = document.createElement('div');
+  box.classList.add('modal_edit');
+  box.innerHTML = `
+        <input type="number" id="price">
+        <div>
+         <button type="button" id="save">
+            Salvar Alterações
+         </button>
+         <button type="button" id="cancel">
+            Cancelar
+         </button>
+        </div>
+    
+  `
+  container.appendChild(box);
+
+  const price = document.getElementById('price')
+
+  price.forEach(price =>{
+    price.value = price.unit_price;
+  })
+
+  document.getElementById('save').addEventListener('click', ()=>{
+    const obj = {
+      unit_price: price.value
+    }
+    window.pywebview.api.editor.edit_price(id_price, obj).then(response =>{
+      alert(response);
+    }).catch(err=>{
+      console.log('Erro ao editar dados', err);
+    })
+  })
+  document.getElementById('cancel').addEventListener('click', ()=>{
+    box.remove();
+  })
 }
