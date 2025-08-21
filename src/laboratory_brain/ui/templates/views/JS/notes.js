@@ -89,6 +89,16 @@ async function load_all_notes(){
       const pdfBtn = document.createElement('button');
       pdfBtn.innerText = 'PDF';
       pdfBtn.classList.add('btn', 'btn-pdf');
+      pdfBtn.addEventListener('click', ()=>{
+        const obj = {
+          id: note.id,
+          id_client: note.id_client,
+          client_name: note.client_name,
+          total: note.total,
+          date: note.date
+        }
+        window.pywebview.api.pdf.make_note(obj)
+      })
 
       td6.append(deleteBtn, pdfBtn);
       tr.append(td1, td2, td3, td4, td5, td6);
@@ -137,6 +147,16 @@ async function load_notes_by_client(id_client){
     const pdfBtn = document.createElement('button');
     pdfBtn.innerText = 'PDF';
     pdfBtn.classList.add('btn', 'btn-pdf');
+    pdfBtn.addEventListener('click', ()=>{
+      const obj = {
+        id: note.id,
+        id_client: note.id_client,
+        client_name: note.client_name,
+        total: note.total,
+        date: note.date
+      }
+      window.pywebview.api.pdf.make_note(obj)
+    })
 
     td6.append(editBtn, deleteBtn, pdfBtn);
     tr.append(td1, td2, td3, td4, td5, td6);
@@ -182,6 +202,16 @@ async function search_note(id){
     const pdfBtn = document.createElement('button');
     pdfBtn.innerText = 'PDF';
     pdfBtn.classList.add('btn', 'btn-pdf');
+    pdfBtn.addEventListener('click', ()=>{
+      const obj = {
+        id: note.id,
+        id_client: note.id_client,
+        client_name: note.client_name,
+        total: note.total,
+        date: note.date
+      }
+      window.pywebview.api.pdf.make_note(obj)
+    })
 
     td6.append(deleteBtn, pdfBtn);
     tr.append(td1, td2, td3, td4, td5, td6);
