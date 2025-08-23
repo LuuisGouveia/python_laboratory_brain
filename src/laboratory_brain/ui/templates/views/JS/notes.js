@@ -8,6 +8,12 @@ export function configurarEventosNotes() {
       window.pywebview.api.windows.register_modal('register_notes.html');
     });
   }
+  const btnPaid = document.getElementById("new_paid");
+  if (btnPaid) {
+    btnPaid.addEventListener("click", () => {
+      window.pywebview.api.windows.register_modal('register_paid.html');
+    });
+  }
   const btnSearch = document.getElementById("search_btn");
   if (btnSearch) {
     const input = document.getElementById('notes_ID_search');
@@ -57,6 +63,7 @@ async function load_select_clients(){
 
 async function load_all_notes(){
   const table = document.getElementById('noteTable');
+  table.innerHTML='';
   const notes = await window.pywebview.api.search.search_all_notes()
   console.log(notes);
   notes.forEach(note =>{
@@ -83,6 +90,7 @@ async function load_all_notes(){
         }).catch(err =>{
           console.error('Erro ao excluir nota',err)
         })
+          table.innerHTML='';
           load_all_notes(); 
         }
       });
@@ -102,7 +110,6 @@ async function load_all_notes(){
 
       td6.append(deleteBtn, pdfBtn);
       tr.append(td1, td2, td3, td4, td5, td6);
-      table.innerHTML = '';
       table.appendChild(tr);
   })
 
@@ -113,6 +120,7 @@ async function load_all_notes(){
 async function load_notes_by_client(id_client){
 
   const table = document.getElementById('noteTable');
+  table.innerHTML='';
   const notes = await window.pywebview.api.search.search_notes_by_client(id_client);
   if(!notes){
     return alert('Não notas para esse cliente selecionado.')
@@ -141,6 +149,7 @@ async function load_notes_by_client(id_client){
         }).catch(err =>{
           console.error('Erro ao excluir nota',err)
         })
+        table.innerHTML='';
         load_all_notes(); 
       }
     });
@@ -158,9 +167,8 @@ async function load_notes_by_client(id_client){
       window.pywebview.api.pdf.make_note(obj)
     })
 
-    td6.append(editBtn, deleteBtn, pdfBtn);
+    td6.append(deleteBtn, pdfBtn);
     tr.append(td1, td2, td3, td4, td5, td6);
-    table.innerHTML='';
     table.appendChild(tr);
   })
 
@@ -196,6 +204,7 @@ async function search_note(id){
         }).catch(err =>{
           console.error('Erro ao excluir nota',err)
         })
+        table.innerHTML='';
         load_all_notes(); 
       }
     });
@@ -215,7 +224,6 @@ async function search_note(id){
 
     td6.append(deleteBtn, pdfBtn);
     tr.append(td1, td2, td3, td4, td5, td6);
-    table.innerHTML='';
     table.appendChild(tr);
   })
 }

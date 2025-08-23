@@ -31,6 +31,7 @@ class Pdf_API():
 
 
         pdf = NotaPDF()
+        pdf.set_auto_page_break(auto=True, margin=15)
         pdf.add_page()
 
         # Título

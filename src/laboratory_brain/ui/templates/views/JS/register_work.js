@@ -43,7 +43,7 @@ async function load_select_clients() {
 async function load_select_work_types() {
     const select = document.getElementById('work_type');
     try {
-        const work_types = await window.pywebview.api.search.search_all_work_types();
+        const work_types = await window.pywebview.api.search.search_work_types();
         work_types.forEach(type => {
             const option = document.createElement('option');
             option.textContent = type.description;

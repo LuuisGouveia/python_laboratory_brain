@@ -29,17 +29,28 @@ async function load_select_work_types() {
     const select = document.getElementById('prices_work_type');
     
     try {
-        const work_types = await window.pywebview.api.search.search_all_work_types();
-        console.log(work_types)
-        work_types.forEach(type => {
-            const option = document.createElement('option');
-            option.textContent = type.description;
-            option.value = type.id;
-            select.appendChild(option);
-        });
+    let work_types = await window.pywebview.api.search.search_work_types();
+    console.log("Tipos recebidos:", work_types);
+
+    // Se não vier array, tenta ajustar
+    if (!Array.isArray(work_types)) {
+        if (typeof work_types === "string") {
+            work_types = JSON.parse(work_types);
+        } else {
+            work_types = Object.values(work_types);
+        }
+    }
+
+    work_types.forEach(type => {
+        const option = document.createElement('option');
+        option.textContent = type.description;
+        option.value = type.id;
+        select.appendChild(option);
+    });
     } catch (error) {
         console.error("Erro ao carregar tipos de trabalho:", error);
     }
+
 }
 
 function buildPriceObject() {
