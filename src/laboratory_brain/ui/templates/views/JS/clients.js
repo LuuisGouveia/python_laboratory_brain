@@ -4,7 +4,7 @@ export function configurarEventosClients() {
   const btn = document.getElementById("new_client");
   if (btn) {
     btn.addEventListener("click", () => {
-      window.pywebview.api.windows.register_modal('register_client.html');
+      register_client();
     });
   }
 
@@ -54,7 +54,7 @@ async function load_clients(){
       window.pywebview.api.deletor.delete_client(client.id).then(response =>{
             alert(response)
           }).catch(err =>{
-            console.error('Erro ao excluir cliente',err)
+            alert('Erro ao excluir cliente',err)
           })
       load_clients();
     }
@@ -121,10 +121,61 @@ async function edit_client(id_client){
     window.pywebview.api.editor.edit_client(id_client, obj).then(response =>{
       alert(response);
     }).catch(err=>{
-      console.log('Erro ao editar dados', err);
+      alert('Erro ao editar dados', err);
     })
   })
   document.getElementById('cancel').addEventListener('click', ()=>{
     box.remove();
   })
+}
+
+async function register_client(){
+  const container = document.getElementById('content_box');
+  const box = document.createElement('div');
+  box.classList.add('modal_edit');
+  box.innerHTML = `
+        <div id="dentist_form">
+        <input type="text" id="client_name_dentist" placeholder="Nome do Cliente">
+        <input type="text" id="client_cpf_dentist" placeholder="CPF/CNPJ">
+        <input type="text" id="client_address_dentist" placeholder="Endereço">
+        <input type="text" id="client_fone_dentist" placeholder="Telefone">
+        <input type="text" id="client_email_dentist" placeholder="E-mail">
+        </div>
+        <footer>
+            <button type="button" class="btn" id="client_submit">Cadastrar Cliente</button>
+            <button type="button" class="btn" id="client_cancel">Cancelar</button>
+        </footer>
+  `
+  container.appendChild(box);
+
+  const name = document.getElementById("client_name_dentist").value;
+  const cpf = document.getElementById("client_cpf_dentist").value;
+  const address = document.getElementById("client_address_dentist").value;
+  const fone = document.getElementById("client_fone_dentist").value;
+  const email = document.getElementById("client_email_dentist").value;
+
+  const obj_client = {
+      data: 'client',
+      name: name,
+      cpf_cnpj: cpf,
+      address: address,
+      fone: fone, 
+      email: email,
+  }
+
+  console.log(obj_client)
+  const btn = document.getElementById('client_submit');
+  btn.addEventListener('click', ()=>{
+      window.pywebview.api.register.register(obj_client).then(response => {
+    alert(response);
+    box.remove();
+    }).catch(err => {
+        alert('Erro ao cadastrar:', err);
+    })
+  })
+  const cancel = document.getElementById('client_cancel');
+  cancel.addEventListener('click', ()=>{
+    box.remove();
+  })
+
 }

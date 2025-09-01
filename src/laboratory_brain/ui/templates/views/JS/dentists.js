@@ -11,7 +11,7 @@ export async function configurarEventosDentists() {
   const btn = document.getElementById("new_dentist");
   if (btn) {
     btn.addEventListener("click", () => {
-      window.pywebview.api.windows.register_modal('register_dentist.html');
+      register_dentist();
     });
   }
 }
@@ -41,7 +41,7 @@ async function load_select_clients() {
       select.appendChild(option);
     });
   } catch (error) {
-    console.error("Erro ao carregar clientes:", error);
+    alert("Erro ao carregar clientes:", error);
   }
   
 
@@ -51,7 +51,7 @@ async function load_dentists(clientId) {
   const table = document.getElementById("dentistTable");
 
   if (!table) {
-    console.error("Elemento #dentistTable não encontrado no HTML.");
+    alert("Elemento #dentistTable não encontrado no HTML.");
     return;
   }
 
@@ -115,7 +115,7 @@ async function load_dentists(clientId) {
       table.appendChild(tr);
     });
   } catch (error) {
-    console.error("Erro ao carregar dentistas:", error);
+    alert("Erro ao carregar dentistas:", error);
   }
 }
 
@@ -157,10 +157,59 @@ async function edit_dentist(id_dentist){
     window.pywebview.api.editor.edit_dentist(id_client, obj).then(response =>{
       alert(response);
     }).catch(err=>{
-      console.log('Erro ao editar dados', err);
+      alert('Erro ao editar dados', err);
     })
   })
   document.getElementById('cancel').addEventListener('click', ()=>{
     box.remove();
   })
+}
+
+async function register_dentist(){
+  
+  const container = document.getElementById('content_box');
+  const box = document.createElement('div');
+  box.classList.add('modal_edit');
+  box.innerHTML = `
+        <header>
+        <select name="client_select" id="client_select">
+            <option value="">Selecione o Cliente</option>
+        </select>
+        </header>
+
+        <div id="dentist_form" class="dentist_form">
+            <input type="text" id="dentist_name" placeholder="Nome do Dentista">
+            <input type="text" id="dentist_fone" placeholder="Telefone">
+        </div>
+        
+        <footer>
+            <button type="button" class="btn" id="dentist_submit">Cadastrar Cliente</button>
+            <button type="button" class="btn" id="dentist_cancel">Cancelar</button>
+        </footer>
+    
+  `
+  container.appendChild(box);
+  const clientSelect = document.getElementById('client_select');
+  const dentistName = document.getElementById('dentist_name').value;
+  const dentistFone = document.getElementById('dentist_fone').value;
+
+  const dentistData = {
+      data: 'dentist',
+      id_client: clientSelect.value,
+      name: dentistName,
+      phone: dentistFone
+  };
+
+  console.log(dentistData);
+  const saveBtn = document.getElementById('dentist_submit');
+  saveBtn.addEventListener('click', ()=>{
+    window.pywebview.api.register.register(dentistData).then(response => {
+      alert(response);
+      }).catch(err =>{
+          alert('Erro:', err)
+      });
+  })
+  
+    
+
 }
