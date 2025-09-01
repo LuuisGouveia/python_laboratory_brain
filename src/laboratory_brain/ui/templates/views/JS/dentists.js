@@ -166,7 +166,8 @@ async function edit_dentist(id_dentist){
 }
 
 async function register_dentist(){
-  
+  const clientSelect = document.getElementById('client_select');
+  load_select_clients();
   const container = document.getElementById('content_box');
   const box = document.createElement('div');
   box.classList.add('modal_edit');
@@ -189,25 +190,30 @@ async function register_dentist(){
     
   `
   container.appendChild(box);
-  const clientSelect = document.getElementById('client_select');
-  const dentistName = document.getElementById('dentist_name').value;
-  const dentistFone = document.getElementById('dentist_fone').value;
-
-  const dentistData = {
-      data: 'dentist',
-      id_client: clientSelect.value,
-      name: dentistName,
-      phone: dentistFone
-  };
-
-  console.log(dentistData);
+  
+  
   const saveBtn = document.getElementById('dentist_submit');
   saveBtn.addEventListener('click', ()=>{
+    const dentistName = document.getElementById('dentist_name').value;
+    const dentistFone = document.getElementById('dentist_fone').value;
+
+    const dentistData = {
+        data: 'dentist',
+        id_client: clientSelect.value,
+        name: dentistName,
+        phone: dentistFone
+      };
+
+    console.log(dentistData);
     window.pywebview.api.register.register(dentistData).then(response => {
       alert(response);
       }).catch(err =>{
           alert('Erro:', err)
       });
+  })
+  const cancel = document.getElementById('dentist_cancel');
+  cancel.addEventListener('click', () =>{
+    box.remove();
   })
   
     
