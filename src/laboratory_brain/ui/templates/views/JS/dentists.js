@@ -166,14 +166,13 @@ async function edit_dentist(id_dentist){
 }
 
 async function register_dentist(){
-  const clientSelect = document.getElementById('client_select');
-  load_select_clients();
+  
   const container = document.getElementById('content_box');
   const box = document.createElement('div');
   box.classList.add('modal_edit');
   box.innerHTML = `
         <header>
-        <select name="client_select" id="client_select">
+        <select name="register_select" id="register_select">
             <option value="">Selecione o Cliente</option>
         </select>
         </header>
@@ -190,7 +189,14 @@ async function register_dentist(){
     
   `
   container.appendChild(box);
-  
+  const clientSelect = document.getElementById('register_select');
+  const clients = await window.pywebview.api.search.search_all_clients();
+    clients.forEach(client =>{
+      const option = document.createElement('option');
+      option.value = client.id;
+      option.text = client.name;
+      clientSelect.appendChild(option);
+    })
   
   const saveBtn = document.getElementById('dentist_submit');
   saveBtn.addEventListener('click', ()=>{
@@ -207,6 +213,7 @@ async function register_dentist(){
     console.log(dentistData);
     window.pywebview.api.register.register(dentistData).then(response => {
       alert(response);
+      box.remove();
       }).catch(err =>{
           alert('Erro:', err)
       });
