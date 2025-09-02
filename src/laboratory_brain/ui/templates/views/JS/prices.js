@@ -7,7 +7,7 @@ export function configurarEventosPrices() {
   const btn = document.getElementById("new_price");
   if (btn) {
     btn.addEventListener("click", () => {
-      window.pywebview.api.windows.register_modal('register_prices.html');
+      register_prices();
       
     });
   }
@@ -179,4 +179,77 @@ async function edit_price(id_price){
   document.getElementById('cancel').addEventListener('click', ()=>{
     box.remove();
   })
+}
+
+async function register_prices(){
+  const container = document.getElementById('content_box');
+  const box = document.createElement('div');
+  box.classList.add('modal_edit');
+  box.innerHTML = `
+        <div id="prices_form">
+        <select name="prices_client" id="prices_client">
+            <option value="">Selecione o Cliente</option>
+        </select>
+        <select name="prices_work_type" id="prices_work_type">
+            <option value="">Selecione o Trabalho</option>
+        </select>
+        <label for="prices_unit">Valor Unitário:</label>
+        <input type="number" id="prices_unit">
+        </div>
+        <footer>
+            <button type="button" class="btn" id="prices_submit">Cadastrar Novo Preço</button>
+            <button type="button" class="btn" id="prices_cancel">Cancelar</button>
+        </footer>
+    
+  `
+  container.appendChild(box);
+  const clientSelect = document.getElementById('prices_client');
+  const clients = await window.pywebview.api.search.search_all_clients();
+    clients.forEach(client =>{
+      const option = document.createElement('option');
+      option.value = client.id;
+      option.text = client.name;
+      clientSelect.appendChild(option);
+    })
+  const typesSelect = document.getElementById('prices_work_type');
+  let types = await window.pywebview.api.search.search_work_types();
+  console.log(types)
+  if (!Array.isArray(types)) {
+        if (typeof types === "string") {
+            types = JSON.parse(types);
+        } else {
+            types = Object.values(types);
+        }
+    }
+  types.forEach(type =>{
+    const option = document.createElement('option');
+    option.value = type.id;
+    option.text = type.description;
+    typesSelect.appendChild(option);
+  })
+  const priceInput = document.getElementById('prices_unit');
+  const priceData = {
+      data: 'prices',
+      id_client: clientSelect.value,
+      client_name: clientSelect.options[clientSelect.selectedIndex].text,
+      work_type_id: typesSelect.value,
+      work_type_description: typesSelect.options[typesSelect.selectedIndex].text,
+      unit_price: priceInput.value
+  };
+
+  
+  const submit = document.getElementById('prices_submit');
+  submit.addEventListener('click', ()=>{
+      console.log(priceData);
+      window.pywebview.api.register.register(priceData).then(response => {
+      alert(response);
+      box.remove()
+    }).catch(err =>{
+        alert('Erro:', err)
+    });
+  })
+  document.getElementById('prices_cancel').addEventListener('click', () =>{
+    box.remove();
+  })
+  
 }
