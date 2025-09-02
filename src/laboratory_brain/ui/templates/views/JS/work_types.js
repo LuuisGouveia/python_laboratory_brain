@@ -5,7 +5,7 @@ export function configurarEventosWorkTypes() {
   const btn = document.getElementById("new_work_type");
   if (btn) {
     btn.addEventListener("click", () => {
-      window.pywebview.api.windows.register_modal('register_work_types.html');
+      register_work_type();
     });
   }
  
@@ -86,10 +86,42 @@ async function edit_type(id_type){
     window.pywebview.api.editor.edit_client(id_type, obj).then(response =>{
       alert(response);
     }).catch(err=>{
-      console.log('Erro ao editar dados', err);
+      alert('Erro ao editar dados', err);
     })
   })
   document.getElementById('cancel').addEventListener('click', ()=>{
+    box.remove();
+  })
+}
+
+async function register_work_type(){
+  const container = document.getElementById('content_box');
+  const box = document.createElement('div');
+  box.classList.add('modal_edit');
+  box.innerHTML = `
+         <div id="work_types_form">
+        <input type="text" id="description" placeholder="Descrição do Tipo de Trabalho">
+        </div>
+        <footer>
+            <button type="button" class="btn" id="type_submit">Cadastrar Tipo de Trabalho</button>
+            <button type="button" class="btn" id="type_cancel">Cancelar</button>
+        </footer>
+    
+  `
+  container.appendChild(box);
+  const description = document.getElementById("description").value
+
+  document.getElementById('type_submit').addEventListener('click', ()=>{
+    const work_type_obj = {data: 'work_type', description: description};
+    console.log(work_type_obj);
+    window.pywebview.api.register.register(work_type_obj).then(response => {
+        alert(response);
+        box.remove();
+    }).catch(err =>{
+        alert('Erro:', err)
+    });
+  })
+  document.getElementById('type_cancel').addEventListener('click', ()=>{
     box.remove();
   })
 }

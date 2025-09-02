@@ -7,7 +7,7 @@ export function configurarEventosWorks() {
   const btn = document.getElementById("new_work");
   if (btn) {
     btn.addEventListener("click", () => {
-      window.pywebview.api.windows.register_modal('register_work.html');
+      register_work();
     });
   }
 
@@ -162,5 +162,145 @@ async function filter_works_by_client(id_client){
     tr.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11, td12, td13, td14);
     table.appendChild(tr);
   });
+}
+
+async function register_work(){
+  const container = document.getElementById('content_box');
+  const box = document.createElement('div');
+  box.classList.add('modal_edit');
+  box.innerHTML = `
+         <div id="work_form">
+        <select name="work_client" id="work_client">
+            <option value="">Selecione o Cliente</option>
+        </select>
+
+        <select name="work_dentist" id="work_dentist">
+        <option value="">Selecione o Dentista</option>
+        </select>
+
+        
+        <input type="text" placeholder="Nome do Paciente">
+
+      
+        <select name="work_type" id="work_type">
+            <option value="">Selecione o Tipo de Trabalho</option>
+        </select>
+        
+        <label for="tooth">Nº do Dente:</label>
+        <input type="number" id="tooth">
+
+        <label for="quantity">Quantidade:</label>
+        <input type="number" id="quantity">
+        
+
+        <label for="unit">Valor Unitário:</label>
+        <input type="number" id="unit">
+        
+
+        <label for="total">Valor Total:</label>
+        <input type="number" id="total">
+        
+        <label for="date">Data</label>
+        <input type="date" id="date">
+        
+        </div>
+        <footer>
+            <button class="btn" type="button" id="work_submit">Cadastrar Trabalho</button>
+            <button class="btn" type="button" id="work_cancel">Cancelar</button>
+        </footer>
+
+    
+  `
+  container.appendChild(box);
+  const clients = await window.pywebview.api.search.search_all_clients();
+  const clientSelect = document.getElementById('work_client');
+  clients.forEach(client =>{
+    const option = document.createElement('option');
+    option.value = client.id;
+    option.text = client.name;
+    clientSelect.appendChild(option);
+  })
+  clientSelect.addEventListener('change', async () =>{
+    const dentists = await window.pywebview.api.search.search_dentists_by_client(clientSelect.value);
+    const dentistSelect = document.getElementById('work_dentist');
+    if (dentists.length === 0) {
+      dentistSelect.disabled = true;
+    } else {
+      dentistSelect.disable = false;
+      dentists.forEach(dentist => {
+      const option = document.createElement('option');
+      option.value = dentist.id;
+      option.text = dentist.name;
+      dentistSelect.appendChild(option);
+  })
+  }
+  })
+  
+  const types = await window.pywebview.api.search.search_work_types();
+  const typesSelect = document.getElementById('work_type');
+
+  if (!Array.isArray(types)) {
+        if (typeof types === "string") {
+            types = JSON.parse(types);
+        } else {
+            types = Object.values(types);
+        }
+    }
+  types.forEach(type => {
+    const option = document.createElement('option');
+    option.value = type.id;
+    option.text = type.description;
+    typesSelect.appendChild(option);
+  })
+
+  const unit = document.getElementById('unit');
+  typesSelect.addEventListener('change', async () =>{
+    const unit_price = await window.pywebview.api.search.search_prices(clientSelect.value, typesSelect.value);
+    unit.value = unit_price;
+  })
+
+  const quantity = document.getElementById('quantity');
+  const total = document.getElementById('total');
+  quantity.addEventListener('change', ()=>{
+    total.value = (unit.value * quantity.value).toFixed(2);
+  })
+  
+
+  document.getElementById('work_submit').addEventListener('click', ()=>{
+
+    const tooth = document.getElementById('tooth').value;
+    const pacientName = document.querySelector('#work_form input[placeholder="Nome do Paciente"]').value.trim();
+    const date = document.getElementById('date').value;
+    const dentistSelect = document.getElementById('work_dentist');
+    const typesSelect = document.getElementById('work_type');
+
+
+    const workData = {
+        data: 'work',
+        id_client: clientSelect.value,
+        client_name: clientSelect.options[clientSelect.selectedIndex]?.text || '',
+        dentist: dentistSelect.options[dentistSelect.selectedIndex]?.text || '',
+        pacient: pacientName,
+        work_type_id: typesSelect.value,
+        work_description: typesSelect.options[typesSelect.selectedIndex]?.text || '',
+        tooth: tooth,
+        quantity: quantity.value,
+        unit_price: unit.value,
+        total_price: total.value,
+        date: date
+    };
+
+    console.log(workData);
+    window.pywebview.api.register.register(workData).then(response =>{
+        alert(response);
+        box.remove();
+    }).catch(err =>{
+        alert('Erro ao cadastrar trabalho: ', err)
+    })
+    })
+  document.getElementById('work_cancel').addEventListener('click', () =>{
+    box.remove();
+  })
+
 }
 
