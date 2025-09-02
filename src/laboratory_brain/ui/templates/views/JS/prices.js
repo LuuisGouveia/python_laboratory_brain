@@ -162,7 +162,7 @@ async function edit_price(id_price){
 
   const price = document.getElementById('price')
 
-  price.forEach(price =>{
+  prices.forEach(price =>{
     price.value = price.unit_price;
   })
 
@@ -228,22 +228,23 @@ async function register_prices(){
     typesSelect.appendChild(option);
   })
   const priceInput = document.getElementById('prices_unit');
-  const priceData = {
+  
+
+  
+  const submit = document.getElementById('prices_submit');
+  submit.addEventListener('click', ()=>{
+    const priceData = {
       data: 'prices',
       id_client: clientSelect.value,
       client_name: clientSelect.options[clientSelect.selectedIndex].text,
       work_type_id: typesSelect.value,
       work_type_description: typesSelect.options[typesSelect.selectedIndex].text,
       unit_price: priceInput.value
-  };
-
-  
-  const submit = document.getElementById('prices_submit');
-  submit.addEventListener('click', ()=>{
-      console.log(priceData);
-      window.pywebview.api.register.register(priceData).then(response => {
-      alert(response);
-      box.remove()
+    };
+    console.log(priceData);
+    window.pywebview.api.register.register(priceData).then(response => {
+    alert(response);
+    box.remove()
     }).catch(err =>{
         alert('Erro:', err)
     });

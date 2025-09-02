@@ -155,8 +155,8 @@ class Search_API:
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
             cursor.execute('SELECT id, id_client, client_name, total, date FROM notes WHERE id = ?', id)
-            note = cursor.fetchone();
-            return note[0] if note else None
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
     
     def search_work_in_notes(self, note_id: int):
         with get_connection() as conn:
