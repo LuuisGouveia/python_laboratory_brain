@@ -42,6 +42,7 @@ async function load_work_types(){
           }).catch(err =>{
             console.error('Erro ao excluir tipo',err)
           })
+        table.innerHTML = '';
         load_work_types(); 
       }
     });
@@ -109,9 +110,10 @@ async function register_work_type(){
     
   `
   container.appendChild(box);
-  const description = document.getElementById("description").value
+  
 
   document.getElementById('type_submit').addEventListener('click', ()=>{
+    const description = document.getElementById("description").value
     const work_type_obj = {data: 'work_type', description: description};
     console.log(work_type_obj);
     window.pywebview.api.register.register(work_type_obj).then(response => {

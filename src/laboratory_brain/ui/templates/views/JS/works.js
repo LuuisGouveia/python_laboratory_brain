@@ -187,7 +187,7 @@ async function register_work(){
         </select>
         
         <label for="tooth">Nº do Dente:</label>
-        <input type="number" id="tooth">
+        <input type="text" id="tooth">
 
         <label for="quantity">Quantidade:</label>
         <input type="number" id="quantity">

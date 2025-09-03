@@ -47,8 +47,9 @@ class Pdf_API():
         # Cabeçalho da tabela
         pdf.cell(35, 8, "Paciente", 1)
         pdf.cell(35, 8, "Dentista", 1)
-        pdf.cell(60, 8, "Descrição do Trabalho", 1)
+        pdf.cell(45, 8, "Descrição do Trabalho", 1)
         pdf.cell(15, 8, "Qtd", 1, align="C")
+        pdf.cell(15, 8, "Dente", 1, align="C")
         pdf.cell(25, 8, "Vlr Unit.", 1)
         pdf.cell(25, 8, "Total", 1, ln=True)
 
@@ -60,8 +61,9 @@ class Pdf_API():
         for w in works:
             pdf.cell(35, 8, w['pacient'], 1)
             pdf.cell(35, 8, w['dentist'], 1)
-            pdf.cell(60, 8, w['work_description'], 1)
+            pdf.cell(45, 8, w['work_description'], 1)
             pdf.cell(15, 8, str(w['quantity']), 1, align="C")
+            pdf.cell(15, 8, str(w['tooth']), 1, align="C")
             pdf.cell(25, 8, f"R$ {w['unit_price']:.2f}", 1, align="R")
             pdf.cell(25, 8, f"R$ {w['total_price']:.2f}", 1, ln=True, align="R")
 

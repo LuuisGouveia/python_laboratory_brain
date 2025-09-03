@@ -53,8 +53,18 @@ select:focus {
 }
 
 table {
+  font-family: "Poppins", sans-serif;
   margin-top: 20px;
   margin-bottom: 10px;
+  text-align: center;
+  vertical-align: center;
+  border-radius: 10px;
+  padding: 3px;
+  margin: 5px;
+}
+
+.lab-title{
+  color: var(--second-color);
 }
 
 .mini-input{
