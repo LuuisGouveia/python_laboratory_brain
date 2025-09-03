@@ -1,5 +1,6 @@
 from laboratory_brain.database import models
 from laboratory_brain.ui import main_window
+import webview
 
 if __name__ == "__main__":
     models.create_tables()
