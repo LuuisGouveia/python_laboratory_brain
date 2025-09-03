@@ -1,0 +1,296 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #87ceeb;
+  --second-color: #4682b4;
+  --bg-color: #f9f9f9;
+  --box-color: #f3f2f2;
+}
+
+.p-r {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.p-m {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+body {
+  width: 100%;
+  height: 100dvh;
+  padding: 5px;
+  color: var(--second-color);
+  overflow-x: hidden;
+}
+section {
+  display: flex;
+}
+input {
+  padding: 8px;
+  margin: 5px;
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  color: var(--second-color);
+  width: 80%;
+}
+select {
+  background-color: var(--bg-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 8px;
+  width: 80%;
+}
+select:focus {
+  border: 2px solid var(--second-color);
+}
+
+table {
+  font-family: "Poppins", sans-serif;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  vertical-align: center;
+  border-radius: 10px;
+  padding: 3px;
+  margin: 5px;
+}
+
+.lab-title{
+  color: var(--second-color);
+}
+
+.mini-input{
+  width: 25px;
+}
+
+.main-box{
+  display: flex;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  height: calc(100dvh - 5rem);
+  width: 28dvw;
+  justify-content: center;
+  gap: 30px;
+  border: 2px solid var(--box-color);
+  border-radius: 30px;
+  padding: 5px;
+  overflow: auto;
+}
+
+
+.btn-nav a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: var(--second-color);
+  cursor: pointer;
+  position: relative;
+}
+
+.btn-nav a::after {
+  content: " ";
+  width: 0%;
+  height: 4px;
+  background-color: var(--second-color);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: 0.5s ease-in-out;
+}
+
+.btn-nav a:hover::after {
+  width: 100%;
+}
+
+.btn-nav img {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+}
+
+option {
+  border: 1px solid var(--primary-color);
+  background-color: var(--bg-color);
+}
+
+.bg {
+  background-color: var(--bg-color);
+}
+.box {
+  background-color: var(--bg-color);
+  padding: 5px;
+  margin: 5px;
+}
+.box-p {
+  width: 150px;
+  height: 150px;
+  background: none;
+}
+.btn {
+  padding: 5px;
+  color: var(--bg-color);
+  background-color: var(--primary-color);
+  border: 1px solid var(--box-color);
+  border-radius: 20px;
+  margin: 5px;
+}
+.icon img {
+  width: 40px;
+  height: 40px;
+  background: none;
+}
+.dentist_list {
+  margin: 2px;
+}
+
+#head {
+  width: 95dvw;
+  height: 10rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-shrink: 1;
+}
+
+#logo img {
+  width: 150px;
+  height: 150px;
+}
+#void-box {
+  padding: 5rem;
+}
+
+#menu-btn-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: none;
+  background: none;
+}
+#menu-btn img {
+  width: 40px;
+  height: 40px;
+  background: none;
+}
+#menu-btn {
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+#close-box {
+  padding: 20px;
+  margin: 5px;
+  width: 30px;
+}
+#close-box button {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#content {
+  width: 68.3dvw;
+  height: calc(100dvh - 5rem);
+  overflow: scroll;
+}
+#content-head {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 15px;
+}
+
+#aside {
+  width: 28dvw;
+  height: calc(100dvh - 5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 15px;
+  padding-top: 50px;
+}
+
+#selectClientTable {
+  border: 2px solid var(--second-color);
+}
+
+@media (max-width: 800px) {
+  section {
+    flex-direction: column;
+  }
+  #aside {
+    width: 100dvw;
+    display: none;
+  }
+  #content {
+    width: 100dvw;
+  }
+  .menu {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+#content-body {
+  overflow: scroll;
+}
+
+table {
+  width: 100%;
+  border: 1px solid var(--second-color);
+  background-color: var(--bg-color);
+  padding: 5px;
+}
+
+table tr th {
+  border: 1px solid var(--second-color);
+  margin: 15px;
+}
+
+table td {
+  border: 1px solid var(--second-color);
+  margin: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.invisible_form{
+  display: none;
+}
+
+.modal {
+  overflow: auto;
+}
+.modal_edit{
+  position: absolute;
+   top: 0;
+  left: 0;
+  width: 910px;
+  height: 400px;
+  background-color: var(--bg-color);
+  overflow: auto;
+}
+
+#content_box{
+  position: relative;
+}
+
+#work_form{
+  display: flex;
+  flex-direction: column;
+}
